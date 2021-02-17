@@ -4,6 +4,7 @@ var playerSize = 30;
 var orbSize = 20;
 var createMode = false;
 var createStage = 0;
+var newGame = true;
 
 function startGame() {
     player = new component(playerSize, playerSize, "green", 10, 120);
@@ -85,8 +86,10 @@ function updateGameArea() {
     // Check if player collides with an orb
     for (i = 0; i < orbs.length; i += 1) {
         if (player.crashWith(orbs[i])) {
-            console.log('hit an orb', orbs);
-            return
+            alert('you touched an orb and now scutch is angry cause he has to heal your ass >:(')
+            newGame = true;
+            player = new component(playerSize, playerSize, "green", 10, 120);
+            return;
         } 
     }
     // Check if orbs are correctly done
@@ -95,7 +98,8 @@ function updateGameArea() {
     // Clear and redraw
     gameArea.clear();
     gameArea.frameNo += 1;
-    if (gameArea.frameNo === 1 && !createMode) {
+    if ((gameArea.frameNo === 1 && !createMode) || newGame) {
+        newGame = false;
         objects = get_objects()
         npc1 = objects[0]
         npc2 = objects[1]
@@ -258,4 +262,8 @@ gameCases = [
     [368,41,433,138,390,72,413,108,296,192,369,177],
     [20,99,65,10,43,57,91,38,137,124,76,130],
     [170,224,266,227,201,227,234,229,192,154,242,148],
+    [390,79,250,30,276,40,359,112,215,118,243,163],
+    [80,120,158,64,128,86,119,143,268,102,317,145],
+    [109,186,322,78,286,94,333,115,159,199,327,180],
+    [84,167,314,46,126,141,350,83,352,188,133,186],
 ]
